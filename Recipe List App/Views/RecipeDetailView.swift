@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RecipeDetialView: View {
+struct RecipeDetailView: View {
     
     var recipe: Recipe
     
@@ -29,8 +29,8 @@ struct RecipeDetialView: View {
                         .font(.headline)
                         .padding([.bottom, .top], 5)
                     
-                    ForEach(recipe.ingredients, id: \.self) { item in
-                        Text("· " + item)
+                    ForEach(recipe.ingredients) { item in
+                        Text("· " + item.name)
                             .padding(.bottom, 1)
                     }
                 }
@@ -65,6 +65,6 @@ struct RecipeDetialView_Previews: PreviewProvider {
         
         let model = RecipeModel()
         
-        RecipeDetialView(recipe: model.recipes[0])
+        RecipeDetailView(recipe: model.recipes[0])
     }
 }

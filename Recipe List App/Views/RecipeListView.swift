@@ -14,13 +14,11 @@ struct RecipeListView: View {
     
     var body: some View {
         
-        
-        
         NavigationView {
             List(model.recipes) { r in
                 
                 NavigationLink(
-                    destination: RecipeDetialView(recipe: r),
+                    destination: RecipeDetailView(recipe: r),
                     label: {
                         HStack(spacing: 20.0) {
                             Image(r.image)
