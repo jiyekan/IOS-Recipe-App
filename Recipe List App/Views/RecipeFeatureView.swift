@@ -11,6 +11,7 @@ struct RecipeFeatureView: View {
     
     @EnvironmentObject var model:RecipeModel
     @State var isDetailViewShowing = false
+    @State var tabSelcetionIndex = 0
     
     var body: some View {
         
@@ -24,7 +25,7 @@ struct RecipeFeatureView: View {
             
             GeometryReader { geo in
                 
-                TabView {
+                TabView (selection: $tabSelcetionIndex) {
                     
                     // Loop through each recipe
                     ForEach (0..<model.recipes.count) { index in
@@ -32,6 +33,7 @@ struct RecipeFeatureView: View {
                         // Only show those recipes with featured equals true
                         if model.recipes[index].featured == true {
                             
+                            // tabSelcetionIndex = index
                             // Create a button making recipe card clickable
                             Button(action: {
                                 self.isDetailViewShowing = true
@@ -52,6 +54,7 @@ struct RecipeFeatureView: View {
                                  
                                 }
                             })
+                            .tag(index)
                             .sheet(isPresented: $isDetailViewShowing) {
                                 RecipeDetailView(recipe: model.recipes[index])
                             }
@@ -69,16 +72,27 @@ struct RecipeFeatureView: View {
             VStack (alignment: .leading, spacing: 10) {
                 Text("Preparation Time:")
                     .font(.headline)
-                Text("1 hour")
+                Text(model.recipes[tabSelcetionIndex].prepTime)
                 Text("Highlight:")
                     .font(.headline)
-                Text("Healthy")
+                RecipeHighlights(highlights: model.recipes[tabSelcetionIndex].highlights)
             }
             .padding(.leading)
             .padding(.bottom)
         }
+        .onAppear(perform: {
+            SetFeaturedIndex()
+        })
         
         
+    }
+    
+    func SetFeaturedIndex() {
+        // Find the index of first recipe that is featured
+        let index = model.recipes.firstIndex { (recipe) -> Bool in
+            return recipe.featured
+        }
+        tabSelcetionIndex = index ?? 0
     }
 }
 
