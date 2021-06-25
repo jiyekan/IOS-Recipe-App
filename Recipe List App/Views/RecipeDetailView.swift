@@ -18,12 +18,19 @@ struct RecipeDetailView: View {
         ScrollView {
             
             VStack (alignment: .leading) {
-                // Make: Recipe Name
                 
                 // Mark: Recipe Image
                 Image(recipe.image)
                     .resizable()
                     .scaledToFill()
+                
+                // Mark: Recipe Title
+                Text(recipe.name)
+                    .bold()
+                    .padding(.top, 20)
+                    .padding(.leading)
+                    .font(.largeTitle)
+                    
                 
                 // Mark: Picker
                 VStack (alignment: .leading) {
@@ -70,7 +77,6 @@ struct RecipeDetailView: View {
                 .padding(.horizontal)
             }
         }
-        .navigationBarTitle(recipe.name)
     }
 }
 
