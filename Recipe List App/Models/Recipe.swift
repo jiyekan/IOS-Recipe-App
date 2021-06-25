@@ -22,11 +22,11 @@ class Recipe: Identifiable, Decodable {
     var totalTime: String
     var servings: Int
     var highlights: [String]
-    var ingredients: [ingredient]
+    var ingredients: [Ingredient]
     var directions: [String]
 }
 
-class ingredient: Identifiable, Decodable {
+class Ingredient: Identifiable, Decodable {
     var id: UUID?
     var name: String
     var num: Int?
